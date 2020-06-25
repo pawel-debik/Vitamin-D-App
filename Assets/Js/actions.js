@@ -54,7 +54,7 @@ function renderUvChart(data, labels) {
 }
 
 
-function renderTimeChart(data, labels) {
+function renderTimeChart(minimumExposure, maximumExposure) {
 	const ctx = document.getElementById("time-chart").getContext('2d');
 	const uvChart = new Chart(ctx, {
 		type: 'line',
@@ -65,13 +65,13 @@ function renderTimeChart(data, labels) {
 				borderColor: '#fff',
 				backgroundColor: "#d83d8315",
 				borderWidth: 3,
-					data: ['1','2','3','4','5','6'],
+					data: minimumExposure,
 				},{
 				label: 'Amount of minutes under current conditions to reach 4000 IU',
 				borderColor: '#fff',
 				backgroundColor: "#d83d8315",
 				borderWidth: 3,
-					data: ['3','5','6','8','11','16'],
+					data: maximumExposure
 				}]
 		},
 		options: {}
@@ -107,13 +107,12 @@ function getUVData(url){
 	}
 
 	renderUvChart(uvIndexes, uvTimes);
-	renderTimeChart(uvIndexes, uvTimes);
+	renderTimeChart(minimumExposure(uvNumber), maximumExposure(uvNumber));
 	renderTimeNumber(uvNumber);
 }
 
 
 function renderTimeNumber(uvNumber){
-
 	singleUvIndex.innerHTML = Math.round((uvNumber + Number.EPSILON) * 10) / 10;
 }
 
@@ -145,4 +144,90 @@ function getUVDataFromExternal(url){
 	}
 
 	getUv.send();
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* UV REQUIREMENT CALCULATION          */
+/* * * * * * * * * * * * * * * * * * * */
+
+function minimumExposure(uvi, skinType, age, spf, bmi, skin){
+	let output = [];
+	let skinTypeMultiplyer = 0;
+	let uviStart = 0;
+	let i = 0;
+
+	if ( uvi === 1 ) { uviStart = 20; }
+	if ( uvi === 2 ) { uviStart = 8; }
+	if ( uvi === 3 ) { uviStart = 5; }
+	if ( uvi === 4 ) { uviStart = 4; }
+	if ( uvi === 5 ) { uviStart = 3; }
+	if ( uvi === 6 ) { uviStart = 2; }
+	if ( uvi === 7 ) { uviStart = 1.8; }
+	if ( uvi === 8 ) { uviStart = 1.7; }
+	if ( uvi === 9 ) { uviStart = 1.2; }
+	if ( uvi === 10 ) { uviStart = 1; }
+	if ( uvi === 11 ) { uviStart = 0.9; }
+	if ( uvi === 12 ) { uviStart = 0.8; }
+	if ( uvi === 13 ) { uviStart = 0.7; }
+	if ( uvi === 14 ) { uviStart = 0.6; }
+	if ( uvi === 15 ) { uviStart = 0.5; }
+
+	while ( i < 6) {
+		let skinType = i;
+
+		if ( skinType === 1 ) { skinTypeMultiplyer = 0.5; }
+		if ( skinType === 2 ) { skinTypeMultiplyer = 1; }
+		if ( skinType === 3 ) { skinTypeMultiplyer = 2; }
+		if ( skinType === 4 ) { skinTypeMultiplyer = 3; }
+		if ( skinType === 5 ) { skinTypeMultiplyer = 4; }
+		if ( skinType === 6 ) { skinTypeMultiplyer = 6; }
+
+		output.push(uviStart * skinTypeMultiplyer);
+		i++;
+	}
+
+	console.log(skinTypeMultiplyer);
+	return output;
+}
+
+function maximumExposure(uvi, skinType, age, spf, bmi, skin){
+	let output = [];
+	let skinTypeMultiplyer = 0;
+	let uviStart = 0;
+	let i = 0;
+
+	if ( uvi === 1 ) { uviStart = 200; }
+	if ( uvi === 2 ) { uviStart = 80; }
+	if ( uvi === 3 ) { uviStart = 42; }
+	if ( uvi === 4 ) { uviStart = 30; }
+	if ( uvi === 5 ) { uviStart = 25; }
+	if ( uvi === 6 ) { uviStart = 20; }
+	if ( uvi === 7 ) { uviStart = 18; }
+	if ( uvi === 8 ) { uviStart = 17; }
+	if ( uvi === 9 ) { uviStart = 16; }
+	if ( uvi === 10 ) { uviStart = 15; }
+	if ( uvi === 11 ) { uviStart = 14; }
+	if ( uvi === 12 ) { uviStart = 13; }
+	if ( uvi === 13 ) { uviStart = 12; }
+	if ( uvi === 14 ) { uviStart = 11; }
+	if ( uvi === 15 ) { uviStart = 10; }
+
+	while ( i < 6) {
+		let skinType = i;
+
+		if ( skinType === 1 ) { skinTypeMultiplyer = 0.5; }
+		if ( skinType === 2 ) { skinTypeMultiplyer = 1; }
+		if ( skinType === 3 ) { skinTypeMultiplyer = 2; }
+		if ( skinType === 4 ) { skinTypeMultiplyer = 3; }
+		if ( skinType === 5 ) { skinTypeMultiplyer = 4; }
+		if ( skinType === 6 ) { skinTypeMultiplyer = 6; }
+
+		output.push(uviStart * skinTypeMultiplyer);
+		i++;
+	}
+
+	console.log(skinTypeMultiplyer);
+	return output;
 }
