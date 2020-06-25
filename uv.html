@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UV test</title>
+	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="Assets/Css/style.css">
+</head>
+<body>
+	<main class="uv-app">
+		<div class="block block-uv">
+			<div class="uv-index">
+				<div class="uv-index-forecast">
+					<canvas id="uv-chart" class="uv-chart"></canvas>
+				</div>
+				<div class="uv-index-now">
+					<p class="uv-index-now_number number">5</p>	
+					<p class="uv-index-now_label">UV index</p>
+				</div>	
+			</div>		
+		</div>
+		<div class="block block-factors">
+			<div class="factor factor-clothes">
+				<img src="Assets/Images/dude.svg">
+				<div class="slider bmi-slider">[---0---]</div>
+			</div>
+			<div class="factor factor-cloud-coverage">
+				<img src="./Assets/Images/sun.svg">
+				<div class="slider bmi-slider">[---0---]</div>
+			</div>
+			<div class="factor factor-age">
+				<p class="label factor-age_label">AGE</p>
+				<div class="slider bmi-slider">[---0---]</div>
+			</div>
+			<div class="factor factor-spf">
+				<p class="label factor-spf_label">SPF</p>
+				<p class="factor-spf_number number">[15]</p>
+				<div class="slider bmi-slider">[---0---]</div>
+			</div>
+			<div class="factor factor-bmi">
+				<p class="label factor-bmi_label">BMI</p>
+				<div class="slider bmi-slider">[---0---]</div>
+			</div>
+		</div>
+		<div class="block block-time">
+				<canvas id="time-chart"></canvas>
+		</div>
+	</main>
+	
+	<button id="get-current">Get current UV index</button>
+	<button id="get-forecast">Get UV index forecast</button>
+
+	<script src="Assets/Js/chart.js"></script>
+	<script src="Assets/Js/actions.js"></script>
+<!-- 
+ To Do:
+ - change colors in uv index forecast
+ 	- line needs to be purple
+ 	- line needs to be purple pink (v2)
+ 	- text needs to be white
+ - padding in uv index forecast
+ - grid column gap should be set. Elements are touching eachother now
+ - Call API and then save forecast to  localstorage
+ - Get current UV index by selecting it from forecast
+ - Make first edition of AMOUNTS graph
+ 	- Lots of todo's here that are hard to plan ahead for now
+ - All the svg interactive stuff
+ - All the calculations
+ - Move project to react when ready to start working on sliders
+  -->
+</body>
+</html>
