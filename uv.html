@@ -22,24 +22,26 @@
 		<div class="block block-factors">
 			<div class="factor factor-clothes">
 				<img src="Assets/Images/dude.svg">
-				<div class="slider bmi-slider">[---0---]</div>
+				<input type="range" min="0" max="10" value="5" class="slider clothes-slider" id="clothes-slider">
 			</div>
 			<div class="factor factor-cloud-coverage">
 				<img src="./Assets/Images/sun.svg">
-				<div class="slider bmi-slider">[---0---]</div>
+				<input type="range" min="0" max="10" value="0" class="slider cloud-coverage-slider" id="cloud-coverage-slider">
 			</div>
 			<div class="factor factor-age">
 				<p class="label factor-age_label">AGE</p>
-				<div class="slider bmi-slider">[---0---]</div>
+				<p class="factor-age_number number">22</p>
+				<input type="range" min="1" max="99" value="22" class="slider age-slider" id="age-slider">
 			</div>
 			<div class="factor factor-spf">
 				<p class="label factor-spf_label">SPF</p>
-				<p class="factor-spf_number number">[15]</p>
-				<div class="slider bmi-slider">[---0---]</div>
+				<p class="factor-spf_number number">0</p>
+				<input type="range" min="0" max="60" value="0" class="slider spf-slider" id="spf-slider">
 			</div>
 			<div class="factor factor-bmi">
 				<p class="label factor-bmi_label">BMI</p>
-				<div class="slider bmi-slider">[---0---]</div>
+				<p class="factor-bmi_number number">22</p>
+				<input type="range" min="10" max="50" value="22" class="slider bmi-slider" id="bmi-slider">
 			</div>
 		</div>
 		<div class="block block-time">

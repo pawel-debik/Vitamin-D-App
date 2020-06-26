@@ -73,6 +73,12 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	font-weight: bold;
 }
 
+.factor-age_number {
+	font-family: var(--number-font);
+	color: #fff;
+	font-size: 3em;
+}
+
 /* Bmi */
 .factor-bmi {
 	grid-row: 3 / 4;
@@ -84,6 +90,12 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	color: #fff;
 	font-size: 2em;
 	font-weight: bold;
+}
+
+.factor-bmi_number {
+	font-family: var(--number-font);
+	color: #fff;
+	font-size: 3em;
 }
 
 /* Clothes */
