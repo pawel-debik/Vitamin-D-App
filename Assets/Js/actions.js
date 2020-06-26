@@ -18,22 +18,19 @@ const urlGetCurrentUv = 'https://api.openuv.io/api/v1/uv?lat=52.07&lng=4.28';
 const urlGetForecastUv = 'https://api.openuv.io/api/v1/forecast?lat=52.07&lng=4.28';
 const token = 'a4919b716dbadd90a2b85094147fadb7';
 
-/* Charts */
+// Charts
 let timeChart = '';
 
-// Placeholder forecast and current UV data. Will be local store later
-// const forecast = [{"result":[{"uv":0, "uv_time":"2020-06-25T03:24:51.453Z", "sun_position":{"azimuth":-2.294562007703575, "altitude":-0.012770363434723526 } }, {"uv":0.1065, "uv_time":"2020-06-25T04:24:51.453Z", "sun_position":{"azimuth":-2.092572489519605, "altitude":0.11777308734579932 } }, {"uv":0.4744, "uv_time":"2020-06-25T05:24:51.453Z", "sun_position":{"azimuth":-1.8984704091529137, "altitude":0.26416079027035716 } }, {"uv":1.2392, "uv_time":"2020-06-25T06:24:51.453Z", "sun_position":{"azimuth":-1.7046646876624245, "altitude":0.42052615353256895 } }, {"uv":2.4784, "uv_time":"2020-06-25T07:24:51.453Z", "sun_position":{"azimuth":-1.5005381619546625, "altitude":0.5810479560717934 } }, {"uv":4.1146, "uv_time":"2020-06-25T08:24:51.453Z", "sun_position":{"azimuth":-1.270601372096058, "altitude":0.7389246056725316 } }, {"uv":5.8185, "uv_time":"2020-06-25T09:24:51.453Z", "sun_position":{"azimuth":-0.9914287462163072, "altitude":0.8843933425161872 } }, {"uv":7.3288, "uv_time":"2020-06-25T10:24:51.453Z", "sun_position":{"azimuth":-0.6317215098936501, "altitude":1.0013417487745344 } }, {"uv":8.1711, "uv_time":"2020-06-25T11:24:51.453Z", "sun_position":{"azimuth":-0.17587846818001684, "altitude":1.0650379621882617 } }, {"uv":7.9581, "uv_time":"2020-06-25T12:24:51.453Z", "sun_position":{"azimuth":0.31801763406504385, "altitude":1.05346796732398 } }, {"uv":6.9029, "uv_time":"2020-06-25T13:24:51.453Z", "sun_position":{"azimuth":0.7473144528189045, "altitude":0.9712435023366099 } }, {"uv":5.3829, "uv_time":"2020-06-25T14:24:51.453Z", "sun_position":{"azimuth":1.0801078888920728, "altitude":0.8436980423894176 } }, {"uv":3.5434, "uv_time":"2020-06-25T15:24:51.453Z", "sun_position":{"azimuth":1.3418016815155316, "altitude":0.6932542236814296 } }, {"uv":2.0137, "uv_time":"2020-06-25T16:24:51.453Z", "sun_position":{"azimuth":1.5621333167796223, "altitude":0.5337443397985737 } }, {"uv":0.9294, "uv_time":"2020-06-25T17:24:51.453Z", "sun_position":{"azimuth":1.7618794698151798, "altitude":0.37377385707239047 } }, {"uv":0.3098, "uv_time":"2020-06-25T18:24:51.453Z", "sun_position":{"azimuth":1.9548188514421405, "altitude":0.21970344524734878 } }, {"uv":0.0678, "uv_time":"2020-06-25T19:24:51.453Z", "sun_position":{"azimuth":2.1505581242235925, "altitude":0.07729081714120292 } } ] }];
+// vars for calculations
 const forecast = [];
-const current = {"uv":4.1146,"uv_time":"2020-06-25T08:29:08.758Z","uv_max":8.1711,"uv_max_time":"2020-06-25T11:46:47.435Z","ozone":309.6,"ozone_time":"2020-06-25T06:07:13.969Z","safe_exposure_time":{"st1":41,"st2":49,"st3":65,"st4":81,"st5":130,"st6":243},"sun_info":{"sun_times":{"solarNoon":"2020-06-25T11:46:47.435Z","nadir":"2020-06-24T23:46:47.435Z","sunrise":"2020-06-25T03:24:51.453Z","sunset":"2020-06-25T20:08:43.416Z","sunriseEnd":"2020-06-25T03:29:27.898Z","sunsetStart":"2020-06-25T20:04:06.972Z","dawn":"2020-06-25T02:35:52.794Z","dusk":"2020-06-25T20:57:42.076Z","nauticalDawn":"2020-06-25T01:17:12.396Z","nauticalDusk":"2020-06-25T22:16:22.473Z","nightEnd":null,"night":null,"goldenHourEnd":"2020-06-25T04:20:03.945Z","goldenHour":"2020-06-25T19:13:30.925Z"},"sun_position":{"azimuth":-1.2526193820334395,"altitude":0.7498784630420997}}};
-
 let uvIndexes = [];
 let uvTimes = [];
 let uvNumber = '';
 let roundedUvNumber = '';
-
 let now = '';
 let forecastDate  = '';
-let multiplier = 1;
+let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
+
 
 function renderUvChart(data, labels) {
 	const ctx = document.getElementById("uv-chart").getContext('2d');
@@ -148,6 +145,7 @@ clothesSlider.oninput = function() { // I could add onchange for IE10 support sp
 
 spfSlider.oninput = function() {
 	spfNumber.textContent = spfSlider.value;
+	recalculate('spf', spfSlider.value);
 }
 
 cloudCoverageSlider.oninput = function() {
@@ -166,22 +164,36 @@ bmiSlider.oninput = function() {
 function recalculate(type, value){
 	let output = '';
 
+// let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 	if ( type === 'bmi' ) {
-		if ( value <= 999 ) { multiplier = 2; }
-		if ( value <= 30 ) { multiplier = 1.5; }
-		if ( value <= 20 ) { multiplier = 0.7; }
-		if ( value <= 10 ) { multiplier = 0.5; }
+		if ( value <= 99 && value > 30 ) { multiplier.bmi = 2; }
+		if ( value <= 30 && value > 15 ) { multiplier.bmi = 1.5; }
+		if ( value <= 15 ) { multiplier.bmi = 0.7; }
+	}
+
+	if ( type === 'spf' ) {
+		if ( value <= 60 && value > 50 ) { multiplier.spf = 3; }
+		if ( value <= 50 && value > 40 ) { multiplier.spf = 2.5; }
+		if ( value <= 40 && value > 30 ) { multiplier.spf = 2; }
+		if ( value <= 30 && value > 20 ) { multiplier.spf = 1.5; }
+		if ( value <= 20 && value > 10 ) { multiplier.spf = 1.2; }
+		if ( value <= 10 && value > 0 ) { multiplier.spf = 0.5; }
 	}
 
 	if ( type === 'age' ) {
-		if ( value <= 999 ) { multiplier = 2; }
-		if ( value <= 80 ) { multiplier = 1.5; }
-		if ( value <= 50 ) { multiplier = 0.7; }
-		if ( value <= 30 ) { multiplier = 0.5; }
-		if ( value <= 10 ) { multiplier = 0.3; }
+		if ( value <= 99 && value > 80 ) { multiplier.age = 2; }
+		if ( value <= 80 && value > 70 ) { multiplier.age = 1.7; }
+		if ( value <= 70 && value > 60 ) { multiplier.age = 1.6; }
+		if ( value <= 60 && value > 50 ) { multiplier.age = 1.5; }
+		if ( value <= 50 && value > 50 ) { multiplier.age = 1.4; }
+		if ( value <= 40 && value > 30 ) { multiplier.age = 1.2; }
+		if ( value <= 30 && value > 20 ) { multiplier.age = 1; }
+		if ( value <= 10 && value > 5 ) { multiplier.age = 0.8; }
+		if ( value <= 5 ) { multiplier.age = 0.5; }
 	}
 
-	updateChart(multiplier);
+	output = Number( multiplier.age + multiplier.spf + multiplier.clothes + multiplier.clouds + multiplier.bmi ) / 5;
+	updateChart(output);
 }
 
 let originalChartArray = [['undefined'],['undefined']];
@@ -213,11 +225,11 @@ function updateChart(multiplier) {
 				newChartArray[i][index] = dataset.data[index] * multiplier;
 			}
 
-console.log(i, 
-			'data',dataset.data[index], 
-			'multiplier',multiplier, 
-			'orig',originalChartArray[i][index], 
-			'new',newChartArray[i][index]);
+// console.log(i, 
+// 			'data',dataset.data[index], 
+// 			'multiplier',multiplier, 
+// 			'orig',originalChartArray[i][index], 
+// 			'new',newChartArray[i][index]);
 
 		});
 		dataset.data = newChartArray[i];

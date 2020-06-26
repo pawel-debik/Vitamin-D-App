@@ -17,6 +17,17 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 /* * * * * * * * * * * * * * * * * * * */
+/* Header                              */
+/* * * * * * * * * * * * * * * * * * * */
+.app-header {
+	font-family: var(--label-font);
+	color: #fff;
+	font-size: 2em;
+	text-align: center;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * */
 /* Layout                              */
 /* * * * * * * * * * * * * * * * * * * */
 .uv-app { 
@@ -27,6 +38,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	background-image: linear-gradient(#b37bda, #d83d83); 
 	height: 100vh;
 }
+
 
 /* * * * * * * * * * * * * * * * * * * */
 /* Factors                             */
@@ -112,7 +124,6 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 
-
 /* * * * * * * * * * * * * * * * * * * */
 /* UV Index                            */
 /* * * * * * * * * * * * * * * * * * * */
@@ -145,4 +156,20 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 .uv-index-now_label {
 	font-family: var(--label-font);
+}
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* Screen sizes                        */
+/* * * * * * * * * * * * * * * * * * * */
+@media(min-width:980px){
+	.uv-app {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 50px 1fr 1fr;
+	}
+
+	.app-header { grid-column: 1 / 3; grid-row: 1 / 2; }
+	.block-uv { grid-column: 1 / 2; grid-row: 2 / 3; }
+	.block-time { grid-column: 1 / 2; grid-row: 3 / 4; }
+	.block-factors { grid-column: 2 / 3; grid-row: 2 / 4; }
 }
