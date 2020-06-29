@@ -1,17 +1,21 @@
 
 // UI elements
 const uvLevel = document.querySelector('.uv-level');
-const getCurrent = document.getElementById('get-current');
-const getForecast = document.getElementById('get-forecast');
 const singleUvIndex = document.querySelector('.uv-index-now_number');
 const clothesSlider = document.getElementById('clothes-slider');
 const cloudCoverageSlider = document.getElementById('cloud-coverage-slider');
+const cloudCoverageGraphic = document.querySelector('.factor-cloud-coverage');
 const ageSlider = document.getElementById('age-slider');
 const spfSlider = document.getElementById('spf-slider');
 const bmiSlider = document.getElementById('bmi-slider');
 const ageNumber = document.querySelector('.factor-age_number');
 const spfNumber = document.querySelector('.factor-spf_number');
 const bmiNumber = document.querySelector('.factor-bmi_number');
+const clothes1 = document.querySelector('.clothes-1');
+const clothes2 = document.querySelector('.clothes-2');
+const clothes3 = document.querySelector('.clothes-3');
+const clothes4 = document.querySelector('.clothes-4');
+const clothes5 = document.querySelector('.clothes-5');
 
 // API stuff
 const urlGetCurrentUv = 'https://api.openuv.io/api/v1/uv?lat=52.07&lng=4.28';
@@ -71,13 +75,13 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 		data: {
 			labels: ['I', 'II', 'III', 'IV', 'V', 'VI'],
 			datasets: [{
-				label: 'Amount of minutes under current conditions to reach 4000 IU',
+				label: 'Minimum exposure to reach 4000 IU',
 				borderColor: '#fff',
 				backgroundColor: "#d83d8315",
 				borderWidth: 3,
 					data: minimumExposure,
 				},{
-				label: 'Amount of minutes under current conditions to reach 4000 IU',
+				label: 'Maximum exposure to reach 4000 IU',
 				borderColor: '#fff',
 				backgroundColor: "#d83d8315",
 				borderWidth: 3,
@@ -85,6 +89,9 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 				}]
 		},
 		options: {
+			legend: {
+				display: false
+			},
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -140,7 +147,38 @@ function renderTimeNumber(uvNumber){
 /* * * * * * * * * * * * * * * * * * * */
 
 clothesSlider.oninput = function() { // I could add onchange for IE10 support spfSlider.onchange = function() { }
+	// change this into a loop in V2
+	if ( clothesSlider.value == 1 ) {
+		clothes1.classList.add('active')
+	} else {
+		clothes1.classList.remove('active')
+	}
 
+	if ( clothesSlider.value == 2 ) {
+		clothes2.classList.add('active')
+	} else {
+		clothes2.classList.remove('active')
+	}
+
+	if ( clothesSlider.value == 3 ) {
+		clothes3.classList.add('active')
+	} else {
+		clothes3.classList.remove('active')
+	}
+
+	if ( clothesSlider.value == 4 ) {
+		clothes4.classList.add('active')
+	} else {
+		clothes4.classList.remove('active')
+	}
+
+	if ( clothesSlider.value == 5 ) {
+		clothes5.classList.add('active')
+	} else {
+		clothes5.classList.remove('active')
+	}
+
+	recalculate('clothes', clothesSlider.value);
 }
 
 spfSlider.oninput = function() {
@@ -149,6 +187,9 @@ spfSlider.oninput = function() {
 }
 
 cloudCoverageSlider.oninput = function() {
+	const cloudClass = "factor factor-cloud-coverage cloud-coverage-" + cloudCoverageSlider.value;
+	cloudCoverageGraphic.className = cloudClass;
+	recalculate('clouds', cloudCoverageSlider.value);
 }
 
 ageSlider.oninput = function() {
@@ -165,19 +206,35 @@ function recalculate(type, value){
 	let output = '';
 
 // let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
+	if ( type === 'clothes' ) {
+		if ( value <= 5 && value > 4 ) { multiplier.clothes = 8; }
+		if ( value <= 4 && value > 3 ) { multiplier.clothes = 5; }
+		if ( value <= 3 && value > 2 ) { multiplier.clothes = 3; }
+		if ( value <= 2 && value > 1 ) { multiplier.clothes = 1.5; }
+		if ( value <= 1 ) { multiplier.clothes = 1; }
+	}
+
 	if ( type === 'bmi' ) {
 		if ( value <= 99 && value > 30 ) { multiplier.bmi = 2; }
 		if ( value <= 30 && value > 15 ) { multiplier.bmi = 1.5; }
 		if ( value <= 15 ) { multiplier.bmi = 0.7; }
 	}
 
+	if ( type === 'clouds' ) {
+		if ( value <= 5 && value > 4 ) { multiplier.clouds = 5; }
+		if ( value <= 4 && value > 3 ) { multiplier.clouds = 4; }
+		if ( value <= 3 && value > 2 ) { multiplier.clouds = 3; }
+		if ( value <= 2 && value > 1 ) { multiplier.clouds = 2; }
+		if ( value <= 1 ) { multiplier.clouds = 1; }
+	}
+
 	if ( type === 'spf' ) {
-		if ( value <= 60 && value > 50 ) { multiplier.spf = 3; }
-		if ( value <= 50 && value > 40 ) { multiplier.spf = 2.5; }
-		if ( value <= 40 && value > 30 ) { multiplier.spf = 2; }
-		if ( value <= 30 && value > 20 ) { multiplier.spf = 1.5; }
-		if ( value <= 20 && value > 10 ) { multiplier.spf = 1.2; }
-		if ( value <= 10 && value > 0 ) { multiplier.spf = 0.5; }
+		if ( value <= 60 && value > 50 ) { multiplier.spf = 6; }
+		if ( value <= 50 && value > 40 ) { multiplier.spf = 5; }
+		if ( value <= 40 && value > 30 ) { multiplier.spf = 4; }
+		if ( value <= 30 && value > 20 ) { multiplier.spf = 3; }
+		if ( value <= 20 && value > 10 ) { multiplier.spf = 2; }
+		if ( value <= 10 && value > 0 ) { multiplier.spf = 1; }
 	}
 
 	if ( type === 'age' ) {
@@ -286,7 +343,7 @@ function minimumExposure(uvi, skinType, age, spf, bmi, skin){
 	if ( uvi <= 2 ) { uviStart = 8; }
 	if ( uvi <= 1 ) { uviStart = 20; }
 
-	while ( i < 6) {
+	while ( i <= 6 ) {
 		let skinType = i;
 
 		if ( skinType === 1 ) { skinTypeMultiplier = 0.5; }
@@ -294,7 +351,7 @@ function minimumExposure(uvi, skinType, age, spf, bmi, skin){
 		if ( skinType === 3 ) { skinTypeMultiplier = 2; }
 		if ( skinType === 4 ) { skinTypeMultiplier = 3; }
 		if ( skinType === 5 ) { skinTypeMultiplier = 4; }
-		if ( skinType === 6 ) { skinTypeMultiplier = 6; }
+		if ( skinType === 6 ) { skinTypeMultiplier = 7; }
 
 		output.push(uviStart * skinTypeMultiplier);
 		// console.log('uviStart: ', uviStart, 'skinTypeMultiplier: ', skinTypeMultiplier, 'calc: ', uviStart * skinTypeMultiplier);
@@ -332,7 +389,7 @@ function maximumExposure(uvi, skinType, age, spf, bmi, skin){
 	if ( uvi <= 14 ) { uviStart = 11; }
 	if ( uvi <= 15 ) { uviStart = 10; }
 
-	while ( i < 6) {
+	while ( i <= 6 ) {
 		let skinType = i;
 
 		if ( skinType === 1 ) { skinTypeMultiplier = 0.5; }
@@ -340,7 +397,7 @@ function maximumExposure(uvi, skinType, age, spf, bmi, skin){
 		if ( skinType === 3 ) { skinTypeMultiplier = 2; }
 		if ( skinType === 4 ) { skinTypeMultiplier = 3; }
 		if ( skinType === 5 ) { skinTypeMultiplier = 4; }
-		if ( skinType === 6 ) { skinTypeMultiplier = 6; }
+		if ( skinType === 6 ) { skinTypeMultiplier = 7; }
 
 		output.push(uviStart * skinTypeMultiplier);
 		i++;
