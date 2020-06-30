@@ -1,0 +1,9 @@
+{
+	"name": "VitaminDashboard",
+	"short_name": "VitaminDashboard",
+	"lang": "en-US",
+	"start_url": "/index.html",
+	"display": "standalone",
+	"background_color": "#c262b7",
+	"theme_color": "#c262b7"
+}
