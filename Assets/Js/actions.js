@@ -36,6 +36,23 @@ let forecastDate  = '';
 let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 
 
+
+/* * * * * * * * * * * * * * * * * * * */
+/* SERVICEWORKER                       */
+/* * * * * * * * * * * * * * * * * * * */
+window.onload = () => {
+  'use strict';
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../../sw.js');
+  }
+}
+
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* CHARTJS                             */
+/* * * * * * * * * * * * * * * * * * * */
 function renderUvChart(data, labels) {
 	const ctx = document.getElementById("uv-chart").getContext('2d');
 	
