@@ -9,14 +9,16 @@
 </head>
 <body>
 	<main class="uv-app">
-		<h1 class="app-header">Vitamin D Dashboard</h1>
+		<h1 class="app-header">Vitamin <strong class="d">D</strong>ashboard</h1>
 		<div class="block block-uv">
 			<div class="uv-index">
 				<div class="uv-index-forecast">
 					<canvas id="uv-chart" class="uv-chart"></canvas>
 				</div>
 				<div class="uv-index-now">
-					<p class="uv-index-now_number number">5</p>	
+					<svg viewBox="0 0 20 20">
+						<text class="uv-index-now_number number" x="0" y="15">0</text>
+					</svg>
 					<p class="uv-index-now_label">UV index</p>
 				</div>	
 			</div>		
@@ -54,7 +56,15 @@
 			</div>
 		</div>
 		<div class="block block-time">
-				<canvas id="time-chart"></canvas>
+			<canvas id="time-chart"></canvas>
+			<ul class="skin-types">
+				<li class="skin-type skin-type-1">I</li>
+				<li class="skin-type skin-type-2">II</li>
+				<li class="skin-type skin-type-3">III</li>
+				<li class="skin-type skin-type-4">IV</li>
+				<li class="skin-type skin-type-5">V</li>
+				<li class="skin-type skin-type-6">VI</li>
+			</ul>
 		</div>
 	</main>
 

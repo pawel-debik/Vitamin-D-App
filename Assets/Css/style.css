@@ -26,13 +26,17 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	text-align: center;
 }
 
+.d {
+	color: #2e0074;
+}
+
 
 /* * * * * * * * * * * * * * * * * * * */
 /* Layout                              */
 /* * * * * * * * * * * * * * * * * * * */
 .uv-app { 
 	display: grid; 
-	grid-template-rows: 3em auto 1fr 1fr; 
+	grid-template-rows: 2em auto 1fr 1fr; 
 	grid-row-gap: 2em;
 	padding: 2em;
     grid-template-columns: calc(100vw - 4em);
@@ -90,8 +94,8 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 .cloud1 {
 	position: absolute;
-	width: 50%;
-	left: calc(0px - 50%);
+	width: 35%;
+	left: calc(0px - 25%);
 	top: 20%;
 	opacity: 0;
 	transition: all 1s cubic-bezier(0, 0.2, 0.5, 1);
@@ -99,8 +103,8 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 .cloud2 {
 	position: absolute;
-	width: 50%;
-	right: calc(0px - 50%);
+	width: 35%;
+	right: calc(0px - 25%);
 	top: 50%;
 	opacity: 0;
 	transition: all 1s cubic-bezier(0, 0.2, 0.5, 1);
@@ -115,12 +119,12 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 .cloud-coverage-2 .cloud1 {
-	left: calc(0px - 40%);
+	left: calc(0px - 7%);
 	opacity: 0.2;
 }
 
 .cloud-coverage-2 .cloud2 {
-	right: calc(0px - 40%);
+	right: calc(0px - 7%);
 	top: 40%;
 	opacity: 0.2;
 }
@@ -130,16 +134,16 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 .cloud-coverage-3 .cloud1 {
-	left: calc(0px - 20%);
+	left: calc(0px - 5%);
 	opacity: 0.6;
-	width: 60%;
+	width: 45%;
 }
 
 .cloud-coverage-3 .cloud2 {
-	right: calc(0px - 20%);
+	right: calc(0px - 5%);
 	top: 25%;
 	opacity: 0.6;
-	width: 60%;
+	width: 45%;
 }
 
 .cloud-coverage-3 .sun {
@@ -147,17 +151,17 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 .cloud-coverage-4 .cloud1 {
-	left: calc(0px - 10%);
+	left: calc(0px - 4%);
 	opacity: 0.8;
 	top: 2%;
-	width: 65%;
+	width: 50%;
 }
 
 .cloud-coverage-4 .cloud2 {
-	right: calc(0px - 10%);
+	right: calc(0px - 4%);
 	opacity: 0.8;
 	top: 30%;
-	width: 65%;
+	width: 50%;
 }
 
 .cloud-coverage-4 .sun {
@@ -168,14 +172,14 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	left: 0;
 	top: -4%;
 	opacity: 1;
-	width: 70%;
+	width: 55%;
 }
 
 .cloud-coverage-5 .cloud2 {
 	right: 0;
 	top: 20%;
 	opacity: 1;
-	width: 70%;
+	width: 55%;
 }
 
 .cloud-coverage-5 .sun {
@@ -267,6 +271,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 /* UV Index now */
 .uv-index-now {
 	display: flex;
+	padding: 0.7em;
 	flex-direction: column;
 	justify-content: center;
 	background-color: #fff;
@@ -275,13 +280,41 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 .uv-index-now_number {
-	font-size: 5em;
 	color: var(--accent-color);
 }
 
 .uv-index-now_label {
 	font-family: var(--label-font);
 }
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* Skin Types                          */
+/* * * * * * * * * * * * * * * * * * * */
+ul.skin-types { 
+	display: flex;
+	justify-content: space-between;
+	padding-left: 30px;
+	padding-right: 10px;
+}
+
+.skin-type {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid #fff 3px;
+	border-radius: 100%;
+	width: 2em;
+	height: 2em;
+	color: #fff;
+}
+
+.skin-type-1 { background-color: #f4d0b0; }
+.skin-type-2 { background-color: #e7b48f; }
+.skin-type-3 { background-color: #d29e7b; }
+.skin-type-4 { background-color: #a45d2b; }
+.skin-type-5 { background-color: #a45d2b; }
+.skin-type-6 { background-color: #3b1f1d; }
 
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -314,7 +347,6 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 }
 
 @media(min-width:640px) {
-	.uv-index-now_number { font-size: 4em; }
 	.factor-age_label,
 	.factor-bmi_label,
 	.factor-spf_label { font-size: 3em; }
@@ -327,7 +359,6 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; grid-column-gap: 1em; }
 	.factor-bmi { grid-row: 2 / 3; grid-column: 3 / 4; }
 	.factor-age { grid-row: 1 / 2; grid-column: 3 / 4; } 
-	.uv-index-now_number { font-size: 4em; }
 }
 
 @media(max-width:440px) {
@@ -339,5 +370,4 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	.factor-age_number,
 	.factor-bmi_number,
 	.factor-spf_number { font-size: 1.2em; }
-	.uv-index-now_number { font-size: 4em; }
 }

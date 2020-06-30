@@ -73,7 +73,7 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 	timeChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['I', 'II', 'III', 'IV', 'V', 'VI'],
+			labels: ['Light', 'Fair', 'Mdium', 'Olive', 'Dark', 'Very dark'],
 			datasets: [{
 				label: 'Minimum exposure to reach 4000 IU',
 				borderColor: '#fff',
@@ -96,6 +96,10 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 				yAxes: [{
 					ticks: {
 						max: 180
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Minutes',
 					}
 				}]
 			}
@@ -307,9 +311,9 @@ function getUVDataFromExternal(url){
 	getUv.setRequestHeader('x-access-token', token);
 
 	getUv.onload = function(){
-		var bla = (getUv.responseText);
-		// console.log('bla from API : ', bla);
-		window.localStorage.setItem('uv_forecast', bla);
+		const uvData = (getUv.responseText);
+		// console.log('uvData from API : ', uvData);
+		window.localStorage.setItem('uv_forecast', uvData);
 	}
 
 	getUv.send();
