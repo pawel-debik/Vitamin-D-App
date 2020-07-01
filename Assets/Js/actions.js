@@ -94,7 +94,7 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 	timeChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Light', 'Fair', 'Mdium', 'Olive', 'Dark', 'Very dark'],
+			labels: ['Light', 'Fair', 'Medium', 'Olive', 'Dark', 'Very dark'],
 			datasets: [{
 				label: 'Minimum exposure to reach 4000 IU',
 				borderColor: '#fff',
@@ -122,7 +122,12 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 						display: true,
 						labelString: 'Minutes',
 					}
-				}]
+				}],
+				xAxes: [{
+					ticks: {
+						   display: false
+					}
+				  }]
 			}
 		}
 	});
