@@ -356,7 +356,7 @@ ul.skin-types {
 @media(min-width:360px) and (max-width: 640px) {	
 	.block-factors { 
 		grid-template-columns: 1fr 1fr 1fr; 
-		grid-template-rows: minmax(5em , 9vh) minmax(6em , 10vh); 
+		grid-template-rows: minmax(5em , 9vh) minmax(5em , 10vh); 
 		grid-column-gap: 1em; 
 		padding-top: 3px;
 	}
@@ -364,10 +364,10 @@ ul.skin-types {
 	.factor-age { grid-row: 1 / 2; grid-column: 3 / 4; } 
 	.factor-age_label,
 	.factor-bmi_label,
-	.factor-spf_label { font-size: 1.6em; }
+	.factor-spf_label { font-size: 1.4em; }
 	.factor-age_number,
 	.factor-bmi_number,
-	.factor-spf_number { font-size: 1.8em; }
+	.factor-spf_number { font-size: 1.7em; }
 }
 
 @media(max-width:640px) {
@@ -376,5 +376,5 @@ ul.skin-types {
 }
 
 @media(max-width:360px) {
-	.uv-app { grid-row-gap: 0.8em; padding: 0.6em 1.2em; }
+	.uv-app { grid-row-gap: 0.8em; padding: 0.6em 1.2em; height: calc(100vh - 1.2em); }
 }
