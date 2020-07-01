@@ -354,10 +354,14 @@ ul.skin-types {
 }
 
 @media(min-width:360px) and (max-width: 640px) {	
-	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: minmax(6em , 11vh) minmax(6em , 11vh); grid-column-gap: 1em; }
+	.block-factors { 
+		grid-template-columns: 1fr 1fr 1fr; 
+		grid-template-rows: minmax(5em , 9vh) minmax(6em , 10vh); 
+		grid-column-gap: 1em; 
+		padding-top: 3px;
+	}
 	.factor-bmi { grid-row: 2 / 3; grid-column: 3 / 4; }
 	.factor-age { grid-row: 1 / 2; grid-column: 3 / 4; } 
-	.app-header,
 	.factor-age_label,
 	.factor-bmi_label,
 	.factor-spf_label { font-size: 1.6em; }
@@ -366,7 +370,11 @@ ul.skin-types {
 	.factor-spf_number { font-size: 1.8em; }
 }
 
+@media(max-width:640px) {
+	.uv-app { grid-template-rows: 1.3em auto auto 1fr;  }
+	.app-header { font-size: 1.2em; font-weight: normal; }
+}
 
 @media(max-width:360px) {
-	.uv-app { grid-row-gap: 1.2em; }
+	.uv-app { grid-row-gap: 0.8em; padding: 0.6em 1.2em; }
 }
