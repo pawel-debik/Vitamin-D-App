@@ -354,7 +354,7 @@ ul.skin-types {
 }
 
 @media(min-width:360px) and (max-width: 640px) {	
-	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: minmax(8em , 15vh) minmax(8em , 15vh); grid-column-gap: 1em; }
+	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: minmax(6em , 11vh) minmax(6em , 11vh); grid-column-gap: 1em; }
 	.factor-bmi { grid-row: 2 / 3; grid-column: 3 / 4; }
 	.factor-age { grid-row: 1 / 2; grid-column: 3 / 4; } 
 }
