@@ -1,4 +1,8 @@
+// to do
+/*
+- getUVData function has repeating code that can be DRYer
 
+*/
 // UI elements
 const uvLevel = document.querySelector('.uv-level');
 const singleUvIndex = document.querySelector('.uv-index-now_number');
@@ -26,12 +30,12 @@ const token = 'a4919b716dbadd90a2b85094147fadb7';
 let timeChart = '';
 
 // vars for calculations
-const forecast = [];
+let forecast = [];
 let uvIndexes = [];
 let uvTimes = [];
 let uvNumber = '';
 let roundedUvNumber = '';
-let now = '';
+let now = new Date();
 let forecastDate  = '';
 let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 
@@ -41,11 +45,11 @@ let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 /* SERVICEWORKER                       */
 /* * * * * * * * * * * * * * * * * * * */
 window.onload = () => {
-  'use strict';
+	'use strict';
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../../sw.js');
-  }
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('../../sw.js');
+	}
 }
 
 
@@ -127,20 +131,34 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 }
 
 function getUVData(url){
+	console.log('Getting uv data from local or api resource');
 	const localData = window.localStorage.getItem('uv_forecast');
 
 	if ( localData ) {
+		console.log('localData does exist, so getting data locally');
 		forecast.push(JSON.parse(localData));
-
-		now = new Date();
 		forecastDate = new Date(forecast[0].result[forecast[0].result.length -1].uv_time);
 
 		if ( now.getDate() > forecastDate.getDate() ){
-			getUVDataFromExternal(url);
+			getUVDataFromExternal(url, function(){
+				runLoop();
+			});
 		}
+
+		runLoop(localData);
 	} else {
-		getUVDataFromExternal(url);
+		getUVDataFromExternal(url, function(uvData){
+			runLoop(uvData);
+		});
 	}
+}
+
+function runLoop(uvData){
+	console.log('running loop, and at this point something should have been written to localstorage');
+
+	if(uvData){forecast.push(JSON.parse(uvData))};
+
+	console.log(forecast);
 
 	for ( i = 0; i < forecast[0].result.length; i++ ){
 		let uvHour = new Date(forecast[0].result[i].uv_time);
@@ -318,7 +336,7 @@ function updateChart(multiplier) {
 /* * * * * * * * * * * * * * * * * * * */
 /* API CALL                            */
 /* * * * * * * * * * * * * * * * * * * */
-function getUVDataFromExternal(url){
+function getUVDataFromExternal(url, callback){
 	// console.log('getting data from url: ' , url);
 
 	var getUv = new XMLHttpRequest();
@@ -331,6 +349,8 @@ function getUVDataFromExternal(url){
 		const uvData = (getUv.responseText);
 		// console.log('uvData from API : ', uvData);
 		window.localStorage.setItem('uv_forecast', uvData);
+		console.log('got some data from api just now');
+		callback(uvData);
 	}
 
 	getUv.send();
