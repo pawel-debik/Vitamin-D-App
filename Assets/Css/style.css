@@ -354,14 +354,14 @@ ul.skin-types {
 }
 
 @media(min-width:360px) and (max-width: 640px) {	
-	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: minmax(auto , 15vh) minmax(auto , 15vh); grid-column-gap: 1em; }
+	.block-factors { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: minmax(8em , 15vh) minmax(8em , 15vh); grid-column-gap: 1em; }
 	.factor-bmi { grid-row: 2 / 3; grid-column: 3 / 4; }
 	.factor-age { grid-row: 1 / 2; grid-column: 3 / 4; } 
 }
 
 
 @media(max-width:360px) {
-	.uv-app { grid-row-gap: 1.2em; grid-template-rows: 1em 13vh 35vh 25vh;}
+	.uv-app { grid-row-gap: 1.2em; }
 	.app-header,
 	.factor-age_label,
 	.factor-bmi_label,
