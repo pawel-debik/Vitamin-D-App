@@ -38,7 +38,7 @@ let roundedUvNumber = '';
 let now = new Date();
 let forecastDate  = '';
 let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
-
+let resizeTimeout;
 
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -60,6 +60,12 @@ window.onload = () => {
 function renderUvChart(data, labels) {
 	const ctx = document.getElementById("uv-chart").getContext('2d');
 	
+	Chart.defaults.global.defaultFontColor = "#fff";
+	Chart.defaults.global.responsive = true;
+	Chart.defaults.global.maintainAspectRatio = false;
+
+	
+	// ctx.canvas.height = 300; // this changes the height of the chart
 	var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
 	gradientStroke.addColorStop(0, "#b37bda");
 	gradientStroke.addColorStop(0.5, "#d83d83");
@@ -79,15 +85,44 @@ function renderUvChart(data, labels) {
 				}]
 		},
 		options: {
+			maintainAspectRatio: false,
 			legend: {
 				display: false
 			}
 		}
 	});
 
-	Chart.defaults.global.defaultFontColor = "#fff";
-}
 
+	
+
+
+	window.addEventListener('resize', function(event){
+		if(!!resizeTimeout){ clearTimeout(resizeTimeout); }
+		resizeTimeout = setTimeout(function(){
+			let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+			let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+			let uVcanvas = document.getElementById('uv-chart');
+			// uVcanvas.style.height = "450px"; this jus stretches it, which looks bad
+			
+			console.log('test');
+			// ctx.canvas.height = 210; // this changes the height of the chart
+			// uvChart.update();
+
+			// let bla = document.getElementById("uv-chart");
+			// bla.style.height = 444;
+			uvChart.update();
+			uvChart.resize(444, 444);
+			// How do I get the UV chart to update in height when window is of a certain size?
+	/*
+			ctx.canvas.height = 300; 
+			uvChart.update();
+			uvChart.resize();
+
+	*/
+		}, 10);
+	});
+}
 
 function renderTimeChart(minimumExposure, maximumExposure) {
 	const ctx = document.getElementById("time-chart").getContext('2d');
@@ -131,9 +166,12 @@ function renderTimeChart(minimumExposure, maximumExposure) {
 			}
 		}
 	});
-
-	Chart.defaults.global.defaultFontColor = "#fff";
 }
+
+
+
+
+  
 
 function getUVData(url){
 	console.log('Getting uv data from local or api resource');
