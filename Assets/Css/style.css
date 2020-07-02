@@ -20,8 +20,8 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 /* Vars                                */
 /* * * * * * * * * * * * * * * * * * * */
 
-:root {	--uv-chart-height: 15vh; }
-:root {	--time-chart-height: 20vh; }
+:root {	--uv-chart-height: 22vh; }
+:root {	--time-chart-height: 25vh; }
 
 /* * * * * * * * * * * * * * * * * * * */
 /* Header                              */
