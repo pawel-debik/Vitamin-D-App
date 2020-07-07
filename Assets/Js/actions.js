@@ -4,6 +4,7 @@
 
 */
 // UI elements
+const body = document.querySelector('.body');
 const uvLevel = document.querySelector('.uv-level');
 const singleUvIndex = document.querySelector('.uv-index-now_number');
 const clothesSlider = document.getElementById('clothes-slider');
@@ -20,6 +21,12 @@ const clothes2 = document.querySelector('.clothes-2');
 const clothes3 = document.querySelector('.clothes-3');
 const clothes4 = document.querySelector('.clothes-4');
 const clothes5 = document.querySelector('.clothes-5');
+const profileButton = document.querySelector('.profile-button');
+const uvApp = document.querySelector('.uv-app');
+const blobBg = document.querySelector('.blob-bg__image');
+const blockUv = document.querySelector('.block-uv');
+const blockFactors = document.querySelector('.block-factors');
+const blockTime = document.querySelector('.block-time');
 
 // API stuff
 const urlGetCurrentUv = 'https://api.openuv.io/api/v1/uv?lat=52.07&lng=4.28';
@@ -375,6 +382,20 @@ function updateChart(multiplier) {
 	});
 	timeChart.update();
 }
+
+profileButton.addEventListener('click', function(e){
+	if ( body.classList.contains('account') ) {
+		body.classList.add('homepage');
+		body.classList.remove('account');
+	} else {
+		body.classList.remove('homepage');
+		body.classList.add('account');
+	}
+	setTimeout(function(){
+		uvApp.classList.toggle('hidden');
+	}, 300);
+});
+
 
 /* * * * * * * * * * * * * * * * * * * */
 /* API CALL                            */

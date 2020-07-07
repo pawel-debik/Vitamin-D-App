@@ -2,7 +2,7 @@ var cacheName = 'vitamindashboard-pwa';
 var filesToCache = [
   '/',
   '/index.html',
-  '/Assets/Css/styles.css',
+  '/Assets/Css/style.css',
   '/Assets/Js/actions.js',
   '/Assets/Js/chart.js'
 ];

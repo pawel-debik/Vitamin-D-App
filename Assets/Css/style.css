@@ -26,7 +26,14 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 /* * * * * * * * * * * * * * * * * * * */
 /* Header                              */
 /* * * * * * * * * * * * * * * * * * * */
+
 .app-header {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.app-header-title {
 	font-family: var(--label-font);
 	color: #fff;
 	font-size: 2em;
@@ -37,19 +44,116 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	color: #2e0074;
 }
 
+.profile-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1.2em;
+	height: 1.2em;
+	padding: 0.5em;
+	border-radius: 100%;
+	background-color: #fff;
+}
+
+.profile-button:hover {
+	cursor: pointer;
+}
+
+.profile-button__image { 
+	width: 100%;
+}
 
 /* * * * * * * * * * * * * * * * * * * */
 /* Layout                              */
 /* * * * * * * * * * * * * * * * * * * */
 .uv-app { 
 	display: grid; 
-	grid-template-rows: 2em auto auto 1fr; 
+	grid-template-rows: auto auto 1fr; 
 	grid-row-gap: 2em;
 	padding: 1em 1.2em;
     grid-template-columns: calc(100vw - 2.4em);
-	background-image: linear-gradient(#b37bda, #d83d83); 
+	/* background-image: linear-gradient(#b37bda, #d83d83);  */
 	height: calc(100vh - 2em);
-	overflow-x: hidden;
+	overflow: hidden;
+}
+
+.hidden {
+	display: none;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * */
+/* Background                            */
+/* * * * * * * * * * * * * * * * * * * * */
+
+.blob-bg {
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    z-index: -999;
+    width: 100vw;
+    top: 0;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * */
+/* Homepage to Account switch animations */
+/* * * * * * * * * * * * * * * * * * * * */
+
+.homepage .block-uv,
+.homepage .block-factors,
+.homepage .block-time {
+	opacity: 1;
+	transition: all 0.3s ease-out;
+}
+
+.homepage .block-signup {
+	opacity: 0;
+	transition: all 0.3s ease-out;
+}
+
+.homepage .blob-bg__image path {
+	animation: blob2 1.3s forwards;
+	transform-origin: 50% 50%;
+}
+
+@keyframes blob2 {
+	0% {
+	  d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 240 380 260 350 270 C 320 280 290 270 270 260 C 240 250 230 280 210 290 C 180 310 130 300 110 280 C 90 270 90 240 90 210");
+	}
+  100% {
+    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 1240 390 1270 390 1270 C 330 1270 300 1270 300 1270 C 300 1270 180 1270 180 1270 C 180 1270 150 1270 90 1270 C 90 1270 90 240 90 210 ");
+  }
+}
+
+/* * * * * * * * * * * * * * * * * * * * */
+/* Account to Homepage switch animations */
+/* * * * * * * * * * * * * * * * * * * * */
+
+.account .block-uv,
+.account .block-factors,
+.account .block-time {
+	opacity: 0;
+	transition: all 0.3s ease-out;
+}
+
+.account .block-signup {
+	opacity: 1;
+	transition: all 0.3s ease-out;
+}
+
+.account .blob-bg__image path {
+	animation: blob1 0.5s forwards;
+	transform-origin: 50% 50%;
+}
+
+@keyframes blob1 {
+  0% {
+    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 1240 390 1270 390 1270 C 330 1270 300 1270 300 1270 C 300 1270 180 1270 180 1270 C 180 1270 150 1270 90 1270 C 90 1270 90 240 90 210 ");
+  }
+  100% {
+    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 240 380 260 350 270 C 320 280 290 270 270 260 C 240 250 230 280 210 290 C 180 310 130 300 110 280 C 90 270 90 240 90 210");
+  }
 }
 
 
@@ -65,6 +169,13 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	grid-column-gap: 4em;
 	grid-row-gap: 1em;
 	text-align: center;
+}
+
+.factor {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .slider {
@@ -92,8 +203,6 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 /* Cloud coverage */
 .factor-cloud-coverage {
-	display: flex;
-    flex-direction: column;
 	position: relative;
 	grid-row: 1 / 2;
 	align-items: center;
@@ -257,6 +366,14 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 
 /* * * * * * * * * * * * * * * * * * * */
+/* Signup                              */
+/* * * * * * * * * * * * * * * * * * * */
+
+.block-signup {
+	grid-row: 2/3;
+}
+
+/* * * * * * * * * * * * * * * * * * * */
 /* Charts                              */
 /* * * * * * * * * * * * * * * * * * * */
 
@@ -380,8 +497,8 @@ ul.skin-types {
 }
 
 @media(max-width:640px) {
-	.uv-app { grid-template-rows: 1.3em auto auto 1fr;  }
-	.app-header { font-size: 1.2em; font-weight: normal; }
+	.uv-app { grid-template-rows: auto auto 1fr;  }
+	.app-header-title { font-size: 1.2em; font-weight: normal; }
 }
 
 @media(max-width:360px) {
