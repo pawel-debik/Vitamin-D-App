@@ -5,7 +5,6 @@
 */
 // UI elements
 const body = document.querySelector('.body');
-const uvLevel = document.querySelector('.uv-level');
 const singleUvIndex = document.querySelector('.uv-index-now_number');
 const clothesSlider = document.getElementById('clothes-slider');
 const cloudCoverageSlider = document.getElementById('cloud-coverage-slider');
@@ -23,15 +22,18 @@ const clothes4 = document.querySelector('.clothes-4');
 const clothes5 = document.querySelector('.clothes-5');
 const profileButton = document.querySelector('.profile-button');
 const uvApp = document.querySelector('.uv-app');
-const blobBg = document.querySelector('.blob-bg__image');
-const blockUv = document.querySelector('.block-uv');
-const blockFactors = document.querySelector('.block-factors');
-const blockTime = document.querySelector('.block-time');
 
-// API stuff
+const signupForm = document.getElementById('signup-form');
+const signupFormEmail = document.getElementById('signup-form__email');
+const signupFormPassword = document.getElementById('signup-form__password');
+
+// OpenUV API
 const urlGetCurrentUv = 'https://api.openuv.io/api/v1/uv?lat=52.07&lng=4.28';
 const urlGetForecastUv = 'https://api.openuv.io/api/v1/forecast?lat=52.07&lng=4.28';
 const token = 'a4919b716dbadd90a2b85094147fadb7';
+
+// Custom Endpoints
+const userDataUrl = 'http://paweldebik.com/vitamindashboard/endpoints/create_user.php';
 
 // Charts
 let timeChart = '';
@@ -420,6 +422,57 @@ function getUVDataFromExternal(url, callback){
 	getUv.send();
 }
 getUVData(urlGetForecastUv);
+
+console.log('xs');
+
+function log(xhr, evType, info) {
+    var evInfo = evType;
+    if (info)
+        evInfo += " - " + info ;
+    evInfo += " - readyState: " + xhr.readyState + ", status: " + xhr.status;
+    alert(evInfo);
+}
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* GET USER DATA                       */
+/* * * * * * * * * * * * * * * * * * * */
+function getUserFromExternal(url, requestData, callback){
+	var xhr = new XMLHttpRequest();
+    // xhr.addEventListener("readystatechange", function() { log(xhr, "readystatechange") });
+    // xhr.addEventListener("loadstart", function(ev) { log(xhr, "loadstart", ev.loaded + " of " + ev.total) });
+    // xhr.addEventListener("progress", function(ev) { log(xhr, "progress", ev.loaded + " of " + ev.total) });
+    // xhr.addEventListener("abort", function() { log(xhr, "abort") });
+    // xhr.addEventListener("error", function() { log(xhr, "error") });
+    // xhr.addEventListener("load", function() { log(xhr, "load") });
+    // xhr.addEventListener("timeout", function(ev) { log(xhr, "timeout", ev.loaded + " of " + ev.total) });
+    // xhr.addEventListener("loadend", function(ev) { log(xhr, "loadend", ev.loaded + " of " + ev.total) });
+    xhr.open("GET", url);
+	
+	xhr.onload = function(){
+		const userData = (xhr.responseText)
+		callback(userData);
+	}
+	
+	xhr.open('POST', url);
+
+	// xhr.setRequestHeader('Content-Type', 'application/json');
+	// xhr.send(form);
+	
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send(requestData);
+}
+
+signupForm.addEventListener('submit', function(e){
+	e.preventDefault();
+	requestData = `email=${signupFormEmail.value}& password=${signupFormPassword.value}& age=${ageSlider.value}& bmi=${bmiSlider.value}& skintype=3& daily_vitamin_d_IU_goal=4000`;
+
+	getUserFromExternal(userDataUrl, requestData, function(userData){
+		alert(userData);
+	});
+});
+
+
 
 
 /* * * * * * * * * * * * * * * * * * * */
