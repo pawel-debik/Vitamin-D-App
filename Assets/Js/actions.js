@@ -47,7 +47,8 @@ let uvNumber = '';
 let roundedUvNumber = '';
 let now = new Date();
 let forecastDate  = '';
-let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
+let multiplierMin = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
+let multiplierMax = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 let resizeTimeout;
 
 
@@ -295,66 +296,79 @@ bmiSlider.oninput = function() {
 }
 
 function recalculate(type, value){
-	let output = '';
+	let outputMultiplierMin = '';
+	let outputMultiplierMax = '';
 
-// let multiplier = { age : 1, spf : 1, clothes : 1, clouds : 1, bmi : 1 };
 	if ( type === 'clothes' ) {
-		if ( value <= 5 && value > 4 ) { multiplier.clothes = 8; }
-		if ( value <= 4 && value > 3 ) { multiplier.clothes = 5; }
-		if ( value <= 3 && value > 2 ) { multiplier.clothes = 3; }
-		if ( value <= 2 && value > 1 ) { multiplier.clothes = 1.5; }
-		if ( value <= 1 ) { multiplier.clothes = 1; }
+		if ( value <= 5 && value > 4 ) { multiplierMin.clothes = 8; multiplierMax.clothes = 8; }
+		if ( value <= 4 && value > 3 ) { multiplierMin.clothes = 5; multiplierMax.clothes = 5; }
+		if ( value <= 3 && value > 2 ) { multiplierMin.clothes = 3; multiplierMax.clothes = 3; }
+		if ( value <= 2 && value > 1 ) { multiplierMin.clothes = 1.5; multiplierMax.clothes = 1.5; }
+		if ( value <= 1 ) { multiplierMin.clothes = 1; multiplierMax.clothes = 1; }
 	}
 
 	if ( type === 'bmi' ) {
-		if ( value <= 99 && value > 30 ) { multiplier.bmi = 2; }
-		if ( value <= 30 && value > 15 ) { multiplier.bmi = 1.5; }
-		if ( value <= 15 ) { multiplier.bmi = 0.7; }
+		if ( value <= 99 && value > 30 ) { multiplierMin.bmi = 2; multiplierMax.bmi = 1; }
+		if ( value <= 30 && value > 15 ) { multiplierMin.bmi = 1.5; multiplierMax.bmi = 1; }
+		if ( value <= 15 ) { multiplierMin.bmi = 0.7; multiplierMax.bmi = 1; }
 	}
 
 	if ( type === 'clouds' ) {
-		if ( value <= 5 && value > 4 ) { multiplier.clouds = 5; }
-		if ( value <= 4 && value > 3 ) { multiplier.clouds = 4; }
-		if ( value <= 3 && value > 2 ) { multiplier.clouds = 3; }
-		if ( value <= 2 && value > 1 ) { multiplier.clouds = 2; }
-		if ( value <= 1 ) { multiplier.clouds = 1; }
+		if ( value <= 5 && value > 4 ) { multiplierMin.clouds = 5; multiplierMax.clouds = 5; }
+		if ( value <= 4 && value > 3 ) { multiplierMin.clouds = 4; multiplierMax.clouds = 4; }
+		if ( value <= 3 && value > 2 ) { multiplierMin.clouds = 3; multiplierMax.clouds = 3; }
+		if ( value <= 2 && value > 1 ) { multiplierMin.clouds = 2; multiplierMax.clouds = 2; }
+		if ( value <= 1 ) { multiplierMin.clouds = 1; multiplierMax.clouds = 1; }
 	}
 
 	if ( type === 'spf' ) {
-		if ( value <= 60 && value > 50 ) { multiplier.spf = 6; }
-		if ( value <= 50 && value > 40 ) { multiplier.spf = 5; }
-		if ( value <= 40 && value > 30 ) { multiplier.spf = 4; }
-		if ( value <= 30 && value > 20 ) { multiplier.spf = 3; }
-		if ( value <= 20 && value > 10 ) { multiplier.spf = 2; }
-		if ( value <= 10 && value > 0 ) { multiplier.spf = 1; }
+		if ( value <= 60 && value > 50 ) { multiplierMin.spf = 6; multiplierMax.spf = 6; }
+		if ( value <= 50 && value > 40 ) { multiplierMin.spf = 5; multiplierMax.spf = 5; }
+		if ( value <= 40 && value > 30 ) { multiplierMin.spf = 4; multiplierMax.spf = 4; }
+		if ( value <= 30 && value > 20 ) { multiplierMin.spf = 3; multiplierMax.spf = 3; }
+		if ( value <= 20 && value > 10 ) { multiplierMin.spf = 2; multiplierMax.spf = 2; }
+		if ( value <= 10 && value > 0 ) { multiplierMin.spf = 1; multiplierMax.spf = 1; }
 	}
 
 	if ( type === 'age' ) {
-		if ( value <= 99 && value > 80 ) { multiplier.age = 2; }
-		if ( value <= 80 && value > 70 ) { multiplier.age = 1.7; }
-		if ( value <= 70 && value > 60 ) { multiplier.age = 1.6; }
-		if ( value <= 60 && value > 50 ) { multiplier.age = 1.5; }
-		if ( value <= 50 && value > 50 ) { multiplier.age = 1.4; }
-		if ( value <= 40 && value > 30 ) { multiplier.age = 1.2; }
-		if ( value <= 30 && value > 20 ) { multiplier.age = 1; }
-		if ( value <= 10 && value > 5 ) { multiplier.age = 0.8; }
-		if ( value <= 5 ) { multiplier.age = 0.5; }
+		if ( value <= 99 && value > 80 ) { multiplierMin.age = 2; multiplierMax.age = 1; }
+		if ( value <= 80 && value > 70 ) { multiplierMin.age = 1.7; multiplierMax.age = 1; }
+		if ( value <= 70 && value > 60 ) { multiplierMin.age = 1.6; multiplierMax.age = 1; }
+		if ( value <= 60 && value > 50 ) { multiplierMin.age = 1.5; multiplierMax.age = 1; }
+		if ( value <= 50 && value > 50 ) { multiplierMin.age = 1.4; multiplierMax.age = 1; }
+		if ( value <= 40 && value > 30 ) { multiplierMin.age = 1.2; multiplierMax.age = 1; }
+		if ( value <= 30 && value > 20 ) { multiplierMin.age = 1; multiplierMax.age = 1; }
+		if ( value <= 10 && value > 5 ) { multiplierMin.age = 0.8; multiplierMax.age = 1; }
+		if ( value <= 5 ) { multiplierMin.age = 0.5; multiplierMax.age = 1; }
 	}
 
-	output = Number( multiplier.age + multiplier.spf + multiplier.clothes + multiplier.clouds + multiplier.bmi ) / 5;
-	updateChart(output);
+	// count up all the multyplying factors
+	outputMultiplierMin = Number( multiplierMin.age + multiplierMin.spf + multiplierMin.clothes + multiplierMin.clouds + multiplierMin.bmi ) / 5;
+	outputMultiplierMax = Number( multiplierMax.age + multiplierMax.spf + multiplierMax.clothes + multiplierMax.clouds + multiplierMax.bmi ) / 5;
+	
+	updateChart(outputMultiplierMin, outputMultiplierMax);
 }
 
 let originalChartArray = [['undefined'],['undefined']];
 let newChartArray = [['undefined'],['undefined']];
 
-function updateChart(multiplier) {
+function updateChart(outputMultiplierMin, outputMultiplierMax) {
+	let outputMultiplier = '';
 
 	timeChart.data.datasets.forEach((dataset, i) => {
 		
 		// reset
 		if ( dataset.data == newChartArray[i] ){
 			dataset.data = originalChartArray[i] 
+		}
+
+		// assign multiplierMin for first loop and multiplierMax for second loop
+		if ( i == 1 ) {
+			// console.log('min: ', outputMultiplierMin);
+			outputMultiplier = outputMultiplierMin;
+		} else if ( i == 0 ) {
+			// console.log('max: ', outputMultiplierMax);
+			outputMultiplier = outputMultiplierMax;
 		}
 
 		dataset.data.forEach(function(value, index){
@@ -366,12 +380,12 @@ function updateChart(multiplier) {
 						originalChartArray[i].pop();
 					}
 
-					newChartArray[i].push(dataset.data[index] * multiplier);
+					newChartArray[i].push(dataset.data[index] * outputMultiplier);
 					originalChartArray[i].push(dataset.data[index]);
 				}
 			} else {
 				originalChartArray[i][index] = dataset.data[index];
-				newChartArray[i][index] = dataset.data[index] * multiplier;
+				newChartArray[i][index] = dataset.data[index] * outputMultiplier;
 			}
 
 // console.log(i, 
@@ -480,7 +494,7 @@ signupForm.addEventListener('submit', function(e){
 /* UV REQUIREMENT CALCULATION          */
 /* * * * * * * * * * * * * * * * * * * */
 
-function minimumExposure(uvi, skinType, age, spf, bmi, skin){
+function minimumExposure(uvi, bmi, skinType, age, spf, skin){
 	let output = [];
 	let skinTypeMultiplier = 0;
 	let uviStart = 0;
@@ -524,7 +538,7 @@ function minimumExposure(uvi, skinType, age, spf, bmi, skin){
 	return output;
 }
 
-function maximumExposure(uvi, skinType, age, spf, bmi, skin){
+function maximumExposure(uvi, bmi, skinType, age, spf, skin){
 	let output = [];
 	let skinTypeMultiplier = 0;
 	let uviStart = 0;
