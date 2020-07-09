@@ -589,8 +589,8 @@ ul.skin-types {
 	.factor-bmi_number,
 	.factor-spf_number { font-size: 1.7rem; }
 	.uv-app { grid-template-rows: auto auto 1fr;  }
-	.app-header-title { font-size: 1.2rem; font-weight: normal; }
-	.content-wrap {	grid-template-rows: 3.3em calc(100vh - 3.3em); }
+	.app-header-title { font-size: 1.4rem; font-weight: normal; }
+	.content-wrap {	grid-template-rows: 3.6em calc(100vh - 3.6em); }
 }
 
 @media(max-width:360px) {
