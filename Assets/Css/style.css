@@ -54,6 +54,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	color: #fff ;
 	font-size: 1em;
 	text-align: center;
+	text-shadow: 1px 1px 1px #e97393, -1px 0px 1px #e97393;
 }
 
 .d {
@@ -194,6 +195,10 @@ input[type=password] {
 .account .signup {
 	opacity: 1;
 	transition: all 0.3s ease-out;
+}
+
+.account .blob-bg__image {
+	height: 140vh;
 }
 
 .account .blob-bg__image path {
