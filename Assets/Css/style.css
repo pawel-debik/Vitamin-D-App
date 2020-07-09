@@ -79,8 +79,32 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 
 /* * * * * * * * * * * * * * * * * * * */
-/* Buttons                             */
+/* Buttons and inputs                  */
 /* * * * * * * * * * * * * * * * * * * */
+
+input[type=text],
+input[type=email],
+input[type=password] {
+	display: block;
+	margin-top: -8px;
+	padding: 1em 1.2em;
+	border-color: #e97393;
+	border-radius: 5px;	
+	font-size: 1.2em;
+	color: #3e0074;
+}
+
+.form-label {
+	position: relative;
+	z-index: 10;
+	margin: 0 0 0 1em;
+	padding: 0 5px;
+	font-family: var(--label-font);
+	font-size: 1em;
+	color: #3e0074;
+	background-color: #fff;
+	width: fit-content;
+}
 
 .signup-button {
 	display: block;
