@@ -127,7 +127,7 @@ input[type=password] {
 	padding: 1em 1.2em;
     grid-template-columns: calc(100vw - 2.4em);
 	/* background-image: linear-gradient(#b37bda, #d83d83);  */
-	height: calc(100vh - 6em);
+	height: calc(100vh - 7em);
 	overflow: hidden;
 }
 
@@ -425,7 +425,7 @@ input[type=password] {
 
 .signup {
 	padding: 0 1.2em;
-	height: calc(100vh - 4em);
+	height: calc(100vh - 5em);
 }
 
 .signup-header {
