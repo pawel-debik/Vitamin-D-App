@@ -79,25 +79,33 @@
 			</ul>
 		</div>
 	</main> <!-- end of uv-app -->
-	<div class="page signup">
+	<div id="signup-page" class="page signup hidden">
 		<div class="block block-signup">
-			<h2>Log in or create a profile</h2>
-			<p>By creating a profile, your settings will be preserved on your next visit</p>
-			<form id="signup-form">
-				<label for="signup-form__email">E-mail address</label>
-				<input id="signup-form__email" type="email" value="example@example.com">
-				<label for="signup-form__password">Password</label>
-				<input id="signup-form__password" type="password" value="123">
-				<button id="signup-button" class="purple button signup-button">Sign up</button>
+			<div class="signup-header">
+				<h2 class="app-header-title-small">Log in or create a profile</h2>
+				<p class="app-header-subtitle">By creating a profile, your settings will be preserved on your next visit</p>
+			</div>
+			<form id="signup-form" class="signup-form">
+				<div class="form-row">
+					<label for="signup-form__email">E-mail address</label>
+					<input id="signup-form__email" type="email" value="example@example.com">
+				</div>
+				<div class="form-row">
+					<label for="signup-form__password">Password</label>
+					<input id="signup-form__password" type="password" value="123">
+				</div>
+				<div class="form-row bottom-row">
+					<button id="signup-button" class="signup-button">Sign up</button>
+				</div>
 			</form>
 		</div>
 	</div> <!-- end of signup -->
 	<div class="blob-bg">
-		<svg id="blob-bg__image" class="blob-bg__image" data-name="layer1" viewBox="90 170 300 1200">
+		<svg id="blob-bg__image" class="blob-bg__image" height="100%" width="100%" viewBox="0 0 300 777" preserveAspectRatio="none">
 			<defs><style>.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:url(#color-gradient);}</style>
 				<linearGradient id="color-gradient" x1="567.3" y1="-351.76" x2="567.3" y2="-1197.12" gradientTransform="matrix(1, 0, 0, 0.83, -4.47, 997.61)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a870bb"/><stop offset="1" stop-color="#e97393"/></linearGradient>
 			</defs>
-			<path class="cls-3"  fill="#fff" d="M 90 210 C 90 180 90 150 90 150   C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 1240 390 1270 390 1270 C 330 1270 300 1270 300 1270 C 300 1270 180 1270 180 1270 C 180 1270 150 1270 90 1270 C 90 1270 90 240 90 210" mask="url(#knockout-text)" >
+			<path class="cls-3"  fill="#fff" d="M 0 40   C 0 10 0 -20 0 -20   C 210 -20 240 -20 300 -20   C 300 777 300 777 300 777   C 300 777 290 777 233 777   C 150 777 170 777 110 777  C 30 777 0 777 0 777" >
 			</path>
 		</svg>
 	</div> <!-- end of blob-bg -->

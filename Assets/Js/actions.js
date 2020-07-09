@@ -23,6 +23,7 @@ const clothes5 = document.querySelector('.clothes-5');
 const profileButton = document.querySelector('.profile-button');
 const uvApp = document.querySelector('.uv-app');
 
+const signupPage = document.getElementById('signup-page');
 const signupForm = document.getElementById('signup-form');
 const signupFormEmail = document.getElementById('signup-form__email');
 const signupFormPassword = document.getElementById('signup-form__password');
@@ -395,6 +396,7 @@ profileButton.addEventListener('click', function(e){
 	}
 	setTimeout(function(){
 		uvApp.classList.toggle('hidden');
+		signupPage.classList.toggle('hidden');
 	}, 300);
 });
 
@@ -447,7 +449,6 @@ function getUserFromExternal(url, requestData, callback){
     // xhr.addEventListener("load", function() { log(xhr, "load") });
     // xhr.addEventListener("timeout", function(ev) { log(xhr, "timeout", ev.loaded + " of " + ev.total) });
     // xhr.addEventListener("loadend", function(ev) { log(xhr, "loadend", ev.loaded + " of " + ev.total) });
-    xhr.open("GET", url);
 	
 	xhr.onload = function(){
 		const userData = (xhr.responseText)

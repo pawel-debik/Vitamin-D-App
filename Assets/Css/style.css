@@ -31,12 +31,28 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	display: flex;
 	justify-content: center;
 	position: relative;
+	padding: 1em;
 }
 
 .app-header-title {
 	font-family: var(--label-font);
 	color: #fff;
 	font-size: 2em;
+	text-align: center;
+}
+
+.app-header-title-small {
+	font-family: var(--label-font);
+	color: #3e0074 ;
+	font-size: 1.6em;
+	text-align: center;
+}
+
+.app-header-subtitle {
+	margin-top: 3vh;
+	font-family: var(--label-font);
+	color: #fff ;
+	font-size: 1em;
 	text-align: center;
 }
 
@@ -50,9 +66,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	right: 0;
 	width: 1.2em;
 	height: 1.2em;
-	padding: 0.5em;
-	border-radius: 100%;
-	background-color: #fff;
+	padding: 10px;
 }
 
 .profile-button:hover {
@@ -61,6 +75,22 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 .profile-button__image { 
 	width: 100%;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * */
+/* Buttons                             */
+/* * * * * * * * * * * * * * * * * * * */
+
+.signup-button {
+	display: block;
+	width: 100%;
+	padding: 1.2em;
+	border-radius: 5px;
+	border: none;
+	background-color: #3e0074;
+	color: #fff;
+	bottom: 2em;
 }
 
 /* * * * * * * * * * * * * * * * * * * */
@@ -73,7 +103,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	padding: 1em 1.2em;
     grid-template-columns: calc(100vw - 2.4em);
 	/* background-image: linear-gradient(#b37bda, #d83d83);  */
-	height: calc(100vh - 2em);
+	height: calc(100vh - 6em);
 	overflow: hidden;
 }
 
@@ -107,23 +137,23 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	transition: all 0.3s ease-out;
 }
 
-.homepage .block-signup {
+.homepage .signup {
 	opacity: 0;
 	transition: all 0.3s ease-out;
 }
 
 .homepage .blob-bg__image path {
-	animation: blob2 1.3s forwards;
+	animation: blob2 0.5s forwards;
 	transform-origin: 50% 50%;
 }
 
 @keyframes blob2 {
 	0% {
-	  d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 240 380 260 350 270 C 320 280 290 270 270 260 C 240 250 230 280 210 290 C 180 310 130 300 110 280 C 90 270 90 240 90 210");
+		d: path("M 0 40   C 0 10 0 -20 0 -20   C 210 -20 240 -20 300 -20   C 300 20 300 50 300 90   C 300 110 290 130 233 131   C 150 130 170 130 110 155  C 30 180 0 160 0 140");
 	}
-  100% {
-    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 1240 390 1270 390 1270 C 330 1270 300 1270 300 1270 C 300 1270 180 1270 180 1270 C 180 1270 150 1270 90 1270 C 90 1270 90 240 90 210 ");
-  }
+	100% {
+		d: path("M 0 40   C 0 10 0 -20 0 -20   C 210 -20 240 -20 300 -20   C 300 777 300 777 300 777   C 300 777 290 777 233 777   C 150 777 170 777 110 777  C 30 777 0 777 0 777");
+	}
 }
 
 /* * * * * * * * * * * * * * * * * * * * */
@@ -137,7 +167,7 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 	transition: all 0.3s ease-out;
 }
 
-.account .block-signup {
+.account .signup {
 	opacity: 1;
 	transition: all 0.3s ease-out;
 }
@@ -149,10 +179,10 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 
 @keyframes blob1 {
   0% {
-    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 1240 390 1270 390 1270 C 330 1270 300 1270 300 1270 C 300 1270 180 1270 180 1270 C 180 1270 150 1270 90 1270 C 90 1270 90 240 90 210 ");
+    d: path("M 0 40   C 0 10 0 -20 0 -20   C 210 -20 240 -20 300 -20   C 300 777 300 777 300 777   C 300 777 290 777 233 777   C 150 777 170 777 110 777  C 30 777 0 777 0 777");
   }
   100% {
-    d: path("M 90 210 C 90 180 90 150 90 150 C 300 150 330 150 390 150 C 390 150 390 180 390 210 C 390 240 380 260 350 270 C 320 280 290 270 270 260 C 240 250 230 280 210 290 C 180 310 130 300 110 280 C 90 270 90 240 90 210");
+    d: path("M 0 40   C 0 10 0 -20 0 -20   C 210 -20 240 -20 300 -20   C 300 20 300 50 300 90   C 300 110 290 130 233 131   C 150 130 170 130 110 155  C 30 180 0 160 0 140");
   }
 }
 
@@ -369,8 +399,36 @@ body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquot
 /* Signup                              */
 /* * * * * * * * * * * * * * * * * * * */
 
+.signup {
+	padding: 0 1.2em;
+	height: calc(100vh - 4em);
+}
+
+.signup-header {
+	height: 30vh;
+}
+
 .block-signup {
-	grid-row: 2/3;
+	display: flex;
+	flex-direction: column;
+    grid-row: 2/3;
+    height: calc(100% - 2.4em);
+}
+
+.signup-form {
+    height: calc(100% - 2.4em);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+}
+
+.bottom-row {
+	margin-top: auto;
 }
 
 /* * * * * * * * * * * * * * * * * * * */
